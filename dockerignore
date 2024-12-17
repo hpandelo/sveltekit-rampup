@@ -1,0 +1,6 @@
+node_modules
+
+# Output
+/frontend/.output
+/frontend/.svelte-kit
+/frontend/build

@@ -1,0 +1,86 @@
+version: "3.7"
+volumes:
+  data:
+services:
+  frontend:
+    container_name: frontend
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile.sveltekit
+    ports:
+      - 3000:3000
+      - 5173:5173
+    networks:
+      - sveltekit-rampup-network
+    volumes:
+      - ./frontend/src:/app/src
+    environment:
+      VITE_POCKETBASE_URL: http://127.0.0.1:8090
+      VITE_BACKEND_URL: http://127.0.0.1:8000
+    depends_on:
+      - pocketbase
+      - backend
+
+  backend:
+    container_name: backend
+    restart: unless-stopped
+    image: denoland/deno:latest
+    command: "run -A --watch /app/src/main.ts"
+    volumes:
+      - ./backend:/app
+    ports:
+      - 8000:8000
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8000/ || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      POCKETBASE_URL: http://pocketbase:8090
+    networks:
+      - sveltekit-rampup-network
+    depends_on:
+      - pocketbase
+
+  pocketbase:
+    container_name: pocketbase
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile.pocketbase
+      args:
+        - VERSION=0.23.5
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./.pb/data:/pb_data
+      - ./.pb/public:/pb_public
+      - ./.pb/hooks:/pb_hooks
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - sveltekit-rampup-network
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: ngrok
+    restart: unless-stopped
+    command:
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml"
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    ports:
+      - 4040:4040
+    networks:
+      - sveltekit-rampup-network
+
+networks:
+  sveltekit-rampup-network:
+    driver: bridge

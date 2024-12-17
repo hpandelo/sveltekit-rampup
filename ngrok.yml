@@ -1,0 +1,24 @@
+version: "3"
+
+agent:
+  authtoken: <API TOKEN HERE>
+
+  update: false
+  log: stdout
+
+tunnels:
+  frontend:
+    # addr: 80
+    proto: http
+    addr: http://host.docker.internal:5173
+
+  backend:
+    # addr: 80
+    proto: http
+    addr: http://host.docker.internal:8000
+
+  pocketbase:
+    # addr: 8090
+    proto: http
+    addr: http://host.docker.internal:8090
+

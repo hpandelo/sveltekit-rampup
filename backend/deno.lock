@@ -1,0 +1,49 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@hono/hono@^4.6.14": "4.6.14",
+    "jsr:@std/assert@1": "1.0.9",
+    "jsr:@std/dotenv@*": "0.225.2",
+    "jsr:@std/internal@^1.0.5": "1.0.5",
+    "npm:pocketbase@*": "0.23.0",
+    "npm:pocketbase@0.23": "0.23.0"
+  },
+  "jsr": {
+    "@hono/hono@4.6.14": {
+      "integrity": "b39a5488266adf448fb1081bc3071a0d05145e72f3ab3ff83cf140e780c6c1de"
+    },
+    "@std/assert@1.0.9": {
+      "integrity": "a9f0c611a869cc791b26f523eec54c7e187aab7932c2c8e8bea0622d13680dcd",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/dotenv@0.225.2": {
+      "integrity": "e2025dce4de6c7bca21dece8baddd4262b09d5187217e231b033e088e0c4dd23"
+    },
+    "@std/internal@1.0.5": {
+      "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
+    }
+  },
+  "npm": {
+    "pocketbase@0.23.0": {
+      "integrity": "sha512-S9b/QSKGXsRyL55m8MoXMucPTpMvpOLlOLTSduraIOzwVt8Epp0j7V53a1qW7VbF2pL7PC579DOruxJBWqBYTg=="
+    }
+  },
+  "redirects": {
+    "https://deno.land/std/dotenv/load.ts": "https://deno.land/std@0.224.0/dotenv/load.ts"
+  },
+  "remote": {
+    "https://deno.land/std@0.224.0/dotenv/load.ts": "587b342f0f6a3df071331fe6ba1c823729ab68f7d53805809475e486dd4161d7",
+    "https://deno.land/std@0.224.0/dotenv/mod.ts": "0180eaeedaaf88647318811cdaa418cc64dc51fb08354f91f5f480d0a1309f7d",
+    "https://deno.land/std@0.224.0/dotenv/parse.ts": "09977ff88dfd1f24f9973a338f0f91bbdb9307eb5ff6085446e7c423e4c7ba0c",
+    "https://deno.land/std@0.224.0/dotenv/stringify.ts": "275da322c409170160440836342eaa7cf012a1d11a7e700d8ca4e7f2f8aa4615"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@hono/hono@^4.6.14",
+      "jsr:@std/assert@1",
+      "npm:pocketbase@0.23"
+    ]
+  }
+}
